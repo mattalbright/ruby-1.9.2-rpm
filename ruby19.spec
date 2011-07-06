@@ -3,7 +3,7 @@
 
 Name:           ruby
 Version:        %{rubyver}%{rubyminorver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Ruby License/GPL - see COPYING
 URL:            http://www.ruby-lang.org/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -11,6 +11,7 @@ BuildRequires:  readline readline-devel ncurses ncurses-devel gdbm gdbm-devel gl
 Source0:        ftp://ftp.ruby-lang.org/pub/ruby/ruby-%{rubyver}-%{rubyminorver}.tar.gz
 Summary:        An interpreter of object-oriented scripting language
 Group:          Development/Languages
+Requires: openssl, openssl-devel, zlib, zlib-devel
 Provides: ruby(abi) = 1.9
 Provides: ruby-irb
 Provides: ruby-rdoc
@@ -39,8 +40,13 @@ export CFLAGS="$RPM_OPT_FLAGS -Wall -fno-strict-aliasing"
   --disable-rpath \
   --without-X11 \
   --without-tk \
+  --without-tcl \
   --includedir=%{_includedir}/ruby \
-  --libdir=%{_libdir}
+  --libdir=%{_libdir} \
+  --with-openssl-include=/usr/include/openssl \
+  --with-openssl-lib=/usr/lib64/openssl/engines \
+  --with-zlib-include=/usr/include \
+  --with-zlib-lib=/usr/lib64
 
 make %{?_smp_mflags}
 
@@ -62,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}
 
 %changelog
+* Tue Jul 05 2011 Neal Brown <neal@spiceworks.com> - 1.9.2-p180-3
+- Added openssl and zlib support
+
 * Sat Jun 25 2011 Ian Meyer <ianmmeyer@gmail.com> - 1.9.2-p180-2
 - Remove non-existant --sitearchdir and --vedorarchdir from %configure
 - Replace --sitedir --vendordir with simpler --libdir
