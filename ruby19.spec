@@ -1,9 +1,9 @@
 %define rubyver         1.9.2
-%define rubyminorver    p180
+%define rubyminorver    p290
 
 Name:           ruby
 Version:        %{rubyver}%{rubyminorver}
-Release:        3%{?dist}
+Release:        1%{?dist}
 License:        Ruby License/GPL - see COPYING
 URL:            http://www.ruby-lang.org/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}
 
 %changelog
+* Sun Jul 24 2011 Matt Albright <mattalbright@gmail.com> - 1.9.2-p290-1
+- Update ruby version to 1.9.2-p290
+
 * Tue Jul 05 2011 Neal Brown <neal@spiceworks.com> - 1.9.2-p180-3
 - Added openssl and zlib support
 
